@@ -1,16 +1,16 @@
 include .env
 export $(shell sed 's/=.*//' .env)
 
-setup: start-db install-goose migrate-up
+setup: compose-up install-goose migrate-up
 
-start-db:
+compose-up:
 	docker-compose up -d postgres
-
-stop-db:
-	docker-compose stop postgres
 
 compose-down:
 	docker-compose down
+
+stop-db:
+	docker-compose stop postgres
 
 install-goose:
 	@if [ ! -f $(GOOSE_BINARY) ]; then \
